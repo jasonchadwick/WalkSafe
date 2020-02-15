@@ -196,11 +196,28 @@ nodenum = len(nodeData)
 finaldict = {}
 print(nodenum)
 count = 0
-#for datapoint in nodeData:
-#    finaldict[(datapoint[0], datapoint[1])] = calcRisk.calcRisk((float(datapoint[0]), float(datapoint[1])), averageNodeDict)
-#    if count %20000 == 0:
-#        print(count)
-#    count+=1
-#print("finished doing crime")
-#nodelist = searchProblem.getRoute(nodeData, finaldict, 15, [key for key in nodeData][random.randint(0,len(nodeData))], [key for key in nodeData][random.randint(0,len(nodeData))])
-plotdata(nodeData, importantcrimeData)
+# for datapoint in nodeData:
+#     finaldict[(datapoint[0], datapoint[1])] = calcRisk.calcRisk((float(datapoint[0]), float(datapoint[1])), averageNodeDict)
+#     if count %20000 == 0:
+#         print(count)
+#     count+=1
+# print("finished doing crime")
+# nodelist = searchProblem.getRoute(nodeData, finaldict, 15, [key for key in nodeData][random.randint(0,len(nodeData))], [key for key in nodeData][random.randint(0,len(nodeData))])
+# plotdata(nodeData, importantcrimeData)
+a = [[0 for x in range(208)] for y in range(200)]
+temp1 = 0
+temp2 = 0
+minlat = 40.683
+maxlat = 40.883
+minlon = -74.037
+maxlon = -73.829
+while(temp1 < 200):
+    while(temp2 < 208):
+        a[temp1][temp2] = len(averageNodeDict[(round(40.683 + temp1/1000,3), round(-74.037 + temp2/1000,3))])
+        temp2 += 1
+
+    temp2 = 0
+    temp1 += 1
+    temp1 = round(temp1, 3)
+plt.imshow(np.array(a), cmap='hot', interpolation='nearest')
+plt.show()
