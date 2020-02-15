@@ -33,7 +33,7 @@ def getRoute(start, end, nodeDict):
         newlist.append(coordlist[count])
       count += 1
     coordlist = newlist
-  json.dump({"locations":coordlist}, open("locations.json", "w"))
+  json.dump({"locations":coordlist}, open("locations2.json", "w"))
 
 stuff=[(40.8293935, -73.8754458), (40.8295914, -73.874754), (40.8296024, -73.8747154),
                 (40.8296199, -73.8746368), (40.8296368, -73.8745611), (40.8296692, -73.8744553),
@@ -80,7 +80,8 @@ for s in stuf.keys():
   for ss in stuf[s]:
     pars = s.split()
     minil.append((pars[0],pars[1]))
-  newd[(s[0],s[1])] = minil
-#getRoute((40.73500827774132,-73.99870871510616),(40.776192757644445,-73.95197656436147),newd)
+  newd[(parsed[0],parsed[1])] = minil
 
-print(startlogic.closestNode((40.73500827774132,-73.99870871510616), newd))
+getRoute((40.73500827774132,-73.99870871510616),(40.776192757644445,-73.95197656436147),newd)
+
+#print(startlogic.closestNode((40.73500827774132,-73.99870871510616), newd))
