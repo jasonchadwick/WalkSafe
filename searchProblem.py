@@ -52,7 +52,7 @@ class RouteSearchProblem(search.SearchProblem):
         the incremental cost of expanding to that successor.
         """
         distance = util.getDist(state, action)
-        safety = (safety.get(action)).get(time)
+        safety = (self.safety.get(action)).get(self.time)
         return distance * safety
 
     def getCostOfActions(self, actions):
@@ -73,4 +73,4 @@ def MaxHeuristic(state, problem):
 
 def getRoute(mapDict, safety, time, goal, start):
     prob = RouteSearchProblem(mapDict, safety, time, goal, start)
-    return search.astar(prob, MaxHeuristic)
+    return search.aStarSearch(prob, MaxHeuristic)
