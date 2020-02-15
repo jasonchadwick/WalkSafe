@@ -6,7 +6,7 @@ class RouteSearchProblem(search.SearchProblem):
     function and cost function.
     """
 
-    def __init__(self, map, costFn, goal, start):
+    def __init__(self, mapDict, safety, time, goal, start):
         """
         Stores the start and goal.
         gameState: A GameState object 
@@ -17,8 +17,9 @@ class RouteSearchProblem(search.SearchProblem):
         """
         self.startState = start
         self.goal = goal
-        self.map = map
-        self.costFn = costFn
+        self. safety = safety
+        self.time = time
+        self.map = mapDict
 
         # For display purposes
         #self._visited, self._visitedlist, self._expanded = {}, [], 0 # DO NOT CHANGE
@@ -48,8 +49,8 @@ class RouteSearchProblem(search.SearchProblem):
         Given a state and an action, returns associated cost, which is
         the incremental cost of expanding to that successor.
         """
-        distance = util.getDist(state[0], action[0])
-        safety = action[1]
+        distance = util.getDist(state, action)
+        safety = (safety.get(action)).get(time)
         return distance * safety
 
     def getCostOfActions(self, actions):
@@ -68,5 +69,5 @@ class RouteSearchProblem(search.SearchProblem):
 def MaxHeuristic(state, problem):
     return util.getDist(state, problem.goal)
 
-prob = RouteSearchProblem(map, start=, goal=)
+prob = RouteSearchProblem(mapDict, safety, time, goal, start)
 search.astar(prob, MaxHeuristic)
