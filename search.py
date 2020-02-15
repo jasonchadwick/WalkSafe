@@ -113,3 +113,5 @@ def aStarSearch(problem, heuristic=nullHeuristic):
            child_node = Node(child_node_state, cur_node, child_node_actions, problem.getCostOfActions(child_node_actions) + heuristic(child_node_state, problem))
            if child_node not in expored_set:
                frontier.update(child_node, child_node.path_cost)
+    print("astar failed")
+    return None

@@ -1,4 +1,6 @@
+import sys
 import search
+import util
 
 class RouteSearchProblem(search.SearchProblem):
     """
@@ -62,12 +64,13 @@ class RouteSearchProblem(search.SearchProblem):
         curr = None
         for action in actions:
             curr = action
-            sum += util.getDist(prev, curr)
+            sum += self.getCost(prev, curr)
             prev = curr
         return sum
 
 def MaxHeuristic(state, problem):
     return util.getDist(state, problem.goal)
 
-prob = RouteSearchProblem(mapDict, safety, time, goal, start)
-search.astar(prob, MaxHeuristic)
+def getRoute(mapDict, safety, time, goal, start)
+    prob = RouteSearchProblem(mapDict, safety, time, goal, start)
+    return search.astar(prob, MaxHeuristic)
