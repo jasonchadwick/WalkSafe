@@ -1,5 +1,6 @@
 "use strict";
-
+function createPath()
+{
 let locs = [];
 
 fetch("./locations.json")
@@ -51,3 +52,4 @@ directions.setLayerOptions({
 directions.route({
   locations: locs
 });
+}
