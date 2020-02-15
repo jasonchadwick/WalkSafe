@@ -4,3 +4,4 @@ data/NYPD_Complaint_YTD.csv
 __pycache__/util.cpython-37.pyc
 *.pyc
 *.pyc
+*.pyc
