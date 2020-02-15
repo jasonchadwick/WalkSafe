@@ -1,6 +1,7 @@
 import crimeParsing
 import numpy as np
 import json
+import calcRisk
 import matplotlib
 import random
 import matplotlib.pyplot as plt
@@ -122,6 +123,11 @@ for datapoint in importantcrimeData:
     averageNodeDict[round(datapoint[0],3),round(datapoint[1],3)].append(datapoint)
 max = 0
 maxplace = (0,0)
+for item in averageNodeDict:
+    if len(averageNodeDict[item])> max:
+        max = len(averageNodeDict[item])
+        maxplace = item
+print(maxplace)
 nodeData = update(nodeData)
-#finaldict = {(float(datapoint[0]),float(datapoint[1])):f((float(datapoint[0]),float(datapoint[1]), averageNodeDict) for datapoint in nodeData}
+finaldict = {(str(datapoint[0]),str(datapoint[1])):calcRisk.calcRiskTest((float(datapoint[0]),float(datapoint[1])), averageNodeDict) for datapoint in nodeData}
 plotdata(importantcrimeData)
