@@ -5,9 +5,9 @@ import crime_cost
 import matplotlib.pyplot as plt
 import startlogic
 
-def getRoute(start, end): #nodeDict):
-  #start1 = startlogic.closestNode(start, nodeDict)
-  #end1 = startlogic.closestNode(end, nodeDict)
+def getRoute(start, end, nodeDict):
+  start1 = startlogic.closestNode(start, nodeDict)
+  end1 = startlogic.closestNode(end, nodeDict)
   nodes = json.load(open("data/nodetimerisk.json"))
   tuplenodes = {}
   for n in nodes.keys():
@@ -19,7 +19,7 @@ def getRoute(start, end): #nodeDict):
     tuplenodes[tup] = newmini
   nodeData = crime_cost.update(crime_cost.getNodedata())
   print("starting search")
-  nodelist = searchProblem.getRoute(nodeData, tuplenodes, 15, start, end)
+  nodelist = searchProblem.getRoute(nodeData, tuplenodes, 15, start1, end1)
   print("finished search")
   coordlist = []
   for coord in nodelist:
@@ -30,10 +30,10 @@ def getRoute(start, end): #nodeDict):
     newlist = []
     for coord in coordlist:
       if count%2 == 0 or count == len(coordlist) - 1:
-        newlist.append(coordlist[coord])
+        newlist.append(coordlist[count])
+      count += 1
     coordlist = newlist
   json.dump({"locations":coordlist}, open("locations.json", "w"))
-
 
 stuff=[(40.8293935, -73.8754458), (40.8295914, -73.874754), (40.8296024, -73.8747154),
                 (40.8296199, -73.8746368), (40.8296368, -73.8745611), (40.8296692, -73.8744553),
@@ -58,20 +58,29 @@ stuff=[(40.8293935, -73.8754458), (40.8295914, -73.874754), (40.8296024, -73.874
                 (40.8279661, -73.8533909), (40.8279038, -73.8533742), (40.827919, -73.853261), (40.827933, -73.8531571),
                 (40.827887, -73.8531443), (40.82727, -73.8529941)]
 
-coordlist = []
-for coord in stuff:
-    coordlist.append([coord[0],coord[1]])
-print(coordlist)
-while(len(coordlist)>50):
-  count = 0
-  newlist = []
-  for coord in coordlist:
-    if count%2 == 0 or count == len(coordlist) - 1:
-      newlist.append(coordlist[count])
-    count += 1
-  coordlist = newlist
-json.dump({"locations":coordlist}, open("locations.json", "w"))
+#coordlist = []
+#for coord in stuff:
+#    coordlist.append([coord[0],coord[1]])
+#print(coordlist)
+#while(len(coordlist)>50):
+#  count = 0
+#  newlist = []
+#  for coord in coordlist:
+#    if count%2 == 0 or count == len(coordlist) - 1:
+#      newlist.append(coordlist[count])
+#    count += 1
+#  coordlist = newlist
+#json.dump({"locations":coordlist}, open("locations1.json", "w"))
 
-#nd = json.load(open("data.txt"))
-#ndnew = 
-#for n in nd:
+stuf = json.load(open("data.txt"))
+newd = {}
+for s in stuf.keys():
+  parsed = s.split()
+  minil = []
+  for ss in stuf[s]:
+    pars = s.split()
+    minil.append((pars[0],pars[1]))
+  newd[(s[0],s[1])] = minil
+#getRoute((40.73500827774132,-73.99870871510616),(40.776192757644445,-73.95197656436147),newd)
+
+print(startlogic.closestNode((40.73500827774132,-73.99870871510616), newd))
