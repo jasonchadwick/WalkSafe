@@ -73,5 +73,3 @@ class PriorityQueue:
                 break
         else:
             self.push(item, priority)
-
-print(getDist((40,-74),(40.001,-74.001))*5280)
