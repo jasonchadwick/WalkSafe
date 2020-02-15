@@ -21,7 +21,6 @@ def calcRisk(node, crimedict):
       crimes = crimedict[(rlat, rlon)]
       for t in range(24):
         for crime in crimes:
-          print("doing crime")
           dist = 5280*util.getDist((rlat, rlon), (crime[0],crime[1]))
           hour = crime[3][0]
           minute = crime[3][1]
