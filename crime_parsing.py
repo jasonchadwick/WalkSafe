@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 import csv
+import json
 
 minlat = 40.683
 maxlat = 40.883
@@ -16,4 +17,6 @@ with open("data/NYPD_Complaint_YTD.csv") as csvfile:
     rdr = csv.reader(csvfile, delimiter = ",")
     for row in rdr:
       if (row[15] in felonies.keys()):
-        crimes.append(((float(row[32]), float(row[33])), felonies[row[15]], row[4]))
+        crimes.append(' '.join([row[32], row[33], str(felonies[row[15]]), row[4]]))
+
+json.dump(crimes, open("data/crimes.json", "w"))
