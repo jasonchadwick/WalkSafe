@@ -129,5 +129,5 @@ for item in averageNodeDict:
         maxplace = item
 print(maxplace)
 nodeData = update(nodeData)
-finaldict = {(str(datapoint[0]),str(datapoint[1])):calcRisk.calcRisk((float(datapoint[0]),float(datapoint[1])), averageNodeDict) for datapoint in nodeData}
+finaldict = {(str(datapoint[0]),str(datapoint[1])):calcRisk.calcRiskTest((float(datapoint[0]),float(datapoint[1])), averageNodeDict) for datapoint in nodeData}
 plotdata(importantcrimeData)
