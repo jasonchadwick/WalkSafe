@@ -1,4 +1,5 @@
 from crime_cost import *
+import json
 
 nodeData = getNodedata()
 datalist = crimeParsing.load_crimes()
@@ -32,11 +33,19 @@ nodenum = len(nodeData)
 finaldict = {}
 print(nodenum)
 count = 0
-#for datapoint in nodeData:
-#    finaldict[(datapoint[0], datapoint[1])] = calcRisk.calcRisk((float(datapoint[0]), float(datapoint[1])), averageNodeDict)
-#    if count %20000 == 0:
-#        print(count)
-#    count+=1
-#print("finished doing crime")
-#nodelist = searchProblem.getRoute(nodeData, finaldict, 15, [key for key in nodeData][random.randint(0,len(nodeData))], [key for key in nodeData][random.randint(0,len(nodeData))])
-plotdata(importantcrimeData)
+for datapoint in nodeData:
+    finaldict[(datapoint[0], datapoint[1])] = calcRisk.calcRisk((float(datapoint[0]), float(datapoint[1])), averageNodeDict)
+    if count %20000 == 0:
+        print(count)
+    count+=1
+print("finished doing crime")
+#make coords into strings and store in json
+stringdict = {}
+for node in finaldict.keys():
+    stringdict[str(node[0]) + " " + str(node[1])] = finaldict[node]
+json.dump(stringdict, open("data/nodetimerisk.json","w"))
+nodelist = searchProblem.getRoute(nodeData, finaldict, 15, [key for key in nodeData][random.randint(0,len(nodeData))], [key for key in nodeData][random.randint(0,len(nodeData))])
+coordlist = []
+for coord in nodelist:
+    coordlist.append([coord[0],coord[1]])
+#plotdata(importantcrimeData)
