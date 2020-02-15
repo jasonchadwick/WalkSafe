@@ -12,13 +12,14 @@ felonies = {'ROBBERY': 0.8, 'PETIT LARCENY': 0.5, 'FELONY ASSAULT': 0.8, 'ASSAUL
 def in_range(lat, lon):
   lat >= minlat and lat <= maxlat and lon >= minlon and lon <= maxlon
 
-crimes = []
-with open("data/NYPD_Complaint_YTD.csv") as csvfile:
-    rdr = csv.reader(csvfile, delimiter = ",")
-    for row in rdr:
-      if (row[15] in felonies.keys()):
-        crimes.append(' '.join([row[32], row[33], str(felonies[row[15]]), row[4]]))
+def dump_crimes():
+  crimes = []
+  with open("data/NYPD_Complaint_YTD.csv") as csvfile:
+      rdr = csv.reader(csvfile, delimiter = ",")
+      for row in rdr:
+        if (row[15] in felonies.keys()):
+          crimes.append(' '.join([row[32], row[33], str(felonies[row[15]]), row[4]]))
+  json.dump(crimes, open("data/crimes.json", "w"))
 
-#json.dump(crimes, open("data/crimes.json", "w"))
-
-json.load(open("data/crimes.json"))
+def load_crimes():
+  json.load(open("data/crimes.json"))
