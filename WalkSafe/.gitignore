@@ -19,7 +19,6 @@ yarn-error.log*
 
 
 # production
-/server/build
 
 
 # dependencies
