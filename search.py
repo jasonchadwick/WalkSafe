@@ -53,7 +53,7 @@ class SearchProblem:
         """
         util.raiseNotDefined()
 
- class Node:
+class Node:
     """
     Search node object for your convenience.
 
@@ -91,7 +91,7 @@ class SearchProblem:
     def __ne__(self, other):
         return self.state != other.state       
 
-def aStarSearch(problem, heuristic=nullHeuristic):
+def aStarSearch(problem, heuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
     expored_set = set()
