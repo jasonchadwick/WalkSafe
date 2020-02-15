@@ -115,12 +115,12 @@ def plotdata(importantcrimeData, nodeData, nodelist):
         temp2 = 0
         temp1 += 1
         temp1 = round(temp1, 3)
-    #plt.imshow(np.array(a), cmap='hot', interpolation='nearest')
+    plt.imshow(np.array(a), cmap='hot', interpolation='nearest')
     # plt.scatter(lon2, lat2, alpha=0.5, color = 'r')
     # list1 = np.array([(item[0]-min1)*1000 for item in nodelist])
     # list2 = np.array([(item[1]-min2)*1000 for item in nodelist])  # lon[0:100])
-    list1 = np.array([item[0] for item in nodelist])
-    list2 = np.array([item[1] for item in nodelist])
+    # list1 = np.array([item[0] for item in nodelist])
+    # list2 = np.array([item[1] for item in nodelist])
     lat = [0]*len(importantcrimeData)
     lon = [0]*len(importantcrimeData)
     index = 0
@@ -144,7 +144,7 @@ def plotdata(importantcrimeData, nodeData, nodelist):
     # lat = np.array(rlist1)#lat[0:100])
     # lon = np.array(rlist2)#lon[0:100])
     # plt.scatter(lon, lat, alpha=0.5, color = 'b')
-    plt.plot(list2, list1, alpha=1, color = "g", linewidth=7.0)
+    # plt.plot(list2, list1, alpha=1, color = "g", linewidth=7.0)
     plt.title('Scatter plot')
     plt.xlabel('lon')
     plt.ylabel('lat')
