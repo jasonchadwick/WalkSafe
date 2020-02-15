@@ -16,7 +16,5 @@ def closestNode(coord, nodeDict):
         
     return bestNode
         
-print("facs")
-nodes = cc.update(cc.getNodedata())
-print("true")
-print(closestNode((40.7, -74.0), nodes))
+#nodes = cc.update(cc.getNodedata())
+#print(closestNode((40.7, -74.0), nodes))
