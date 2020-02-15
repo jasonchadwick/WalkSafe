@@ -1,9 +1,35 @@
 import numpy as np
+import json
 import matplotlib
 import random
 import matplotlib.pyplot as plt
 import xml.etree.ElementTree as ET
 from math import cos, acos, pi, sin
+
+def convertkey(t):
+    return str(t[0][0]) + " " + str(t[0][1]) + " " + str(t[1])
+def convertval(t):
+    return str(t[0]) + " " + str(t[1])
+def convertdict(d):
+    newd = {}
+    for key in d:
+        newkey = convertkey(key)
+        newval = [convertval(val) for val in d[key]]
+        newd[newkey] = newval
+    return newd
+def revertkey(t):
+    l = t.split(" ")
+    return ((l[0], l[1]), l[2])
+def revertval(v):
+    l = v.split(" ")
+    return (l[0], l[1])
+def revertdict(d):
+    newd = {}
+    for key in d:
+        newkey = revertkey(key)
+        newval = [revertval(val) for val in d[key]]
+        newd[newkey] = newval
+    return newd
 def is_road(way):
     for tag in way.findall("tag"):
         if tag.get("k") == "highway":
@@ -65,27 +91,31 @@ nodes = root.findall("node")
 for item in nodes:
     dict[item.get("id")] = (item.get("lat"), item.get("lon"))
 newdict = {(dict[item], 1):[dict[x] for x in nodedict[item]] for item in nodedict}
-lat = [0]*sum
-lon = [0]*sum
-index = 0
-for key in newdict:
-    lat[index] = key[0][0]
-    lon[index] = key[0][1]
-    index+=1
-lat = lat[0:index]
-lon = lon[0:index]
-rlist1 = [0]*1000
-rlist2 = [0]*1000
-index2 = 0
-for x in range(1000):
-    r = random.randint(0,len(lat))
-    rlist1[index2] = float(lat[r])
-    rlist2[index2] = float(lon[r])
-    index2+=1
-lat = np.array(rlist1)#lat[0:100])
-lon = np.array(rlist2)#lon[0:100])
-plt.scatter(lat, lon, alpha=0.5)
-plt.title('Scatter plot')
-plt.xlabel('lat')
-plt.ylabel('lon')
-plt.show()
+# lat = [0]*sum
+# lon = [0]*sum
+# index = 0
+# for key in newdict:
+#     lat[index] = key[0][0]
+#     lon[index] = key[0][1]
+#     index+=1
+# lat = lat[0:index]
+# lon = lon[0:index]
+# rlist1 = [0]*10000
+# rlist2 = [0]*10000
+# index2 = 0
+# for x in range(10000):
+#     r = random.randint(0,len(lat))
+#     rlist1[index2] = float(lat[r])
+#     rlist2[index2] = float(lon[r])
+#     index2+=1
+# lat = np.array(rlist1)#lat[0:100])
+# lon = np.array(rlist2)#lon[0:100])
+# plt.scatter(lat, lon, alpha=0.5)
+# plt.title('Scatter plot')
+# plt.xlabel('lat')
+# plt.ylabel('lon')
+# plt.show()
+# with open('data.txt', 'w') as outfile:  #Writing the data file
+#     json.dump(convertdict(newdict), outfile) 
+fetcheddict = json.load(open("data.txt"))
+fetcheddict = revertdict(fetcheddict)
