@@ -130,6 +130,13 @@ for item in averageNodeDict:
         maxplace = item
 print(maxplace)
 nodeData = update(nodeData)
-finaldict = {(datapoint[0],datapoint[1]):calcRisk.calcRisk((float(datapoint[0]),float(datapoint[1])), averageNodeDict) for datapoint in nodeData}
-searchProblem.getRoute(nodeData, finaldict, 15, [key for key in nodeData][random.randint(0,len(nodeData))], [key for key in nodeData][random.randint(0,len(nodeData))])
-plotdata(importantcrimeData)
+finaldict = {(datapoint[0],datapoint[1]):calcRisk.calcRiskTest((float(datapoint[0]),float(datapoint[1])), averageNodeDict) for datapoint in nodeData}
+nodelist = searchProblem.getRoute(nodeData, finaldict, 15, [key for key in nodeData][random.randint(0,len(nodeData))], [key for key in nodeData][random.randint(0,len(nodeData))])
+#plotdata(importantcrimeData)
+list1 = np.array([item[0] for item in nodelist])
+list2 = np.array([item[1] for item in nodelist])# lon[0:100])
+plt.scatter(list1, list2, alpha=0.5)
+plt.title('Scatter plot')
+plt.xlabel('lat')
+plt.ylabel('lon')
+plt.show()
