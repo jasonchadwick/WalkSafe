@@ -130,7 +130,8 @@ for item in averageNodeDict:
         maxplace = item
 print(maxplace)
 nodeData = update(nodeData)
-finaldict = {(datapoint[0],datapoint[1]):calcRisk.calcRiskTest((float(datapoint[0]),float(datapoint[1])), averageNodeDict) for datapoint in nodeData}
+finaldict = {(datapoint[0],datapoint[1]):calcRisk.calcRisk((float(datapoint[0]),float(datapoint[1])), averageNodeDict) for datapoint in nodeData}
+print("finished doing crime")
 nodelist = searchProblem.getRoute(nodeData, finaldict, 15, [key for key in nodeData][random.randint(0,len(nodeData))], [key for key in nodeData][random.randint(0,len(nodeData))])
 #plotdata(importantcrimeData)
 list1 = np.array([item[0] for item in nodelist])
