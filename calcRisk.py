@@ -14,8 +14,10 @@ def calcRisk(node, crimedict):
   timedict = {}
   for t in range(24):
     timedict[t] = 1
-  for lat in [nodelat - 0.001, nodelat, nodelat + 0.001]:
-    for lon in [nodelon - 0.001, nodelon, nodelon + 0.001]:
+  for lat in [nodelat]:
+    for lon in [nodelon]:
+  #for lat in [nodelat - 0.001, nodelat, nodelat + 0.001]:
+  #  for lon in [nodelon - 0.001, nodelon, nodelon + 0.001]:
       rlat = round(lat,3)
       rlon = round(lon,3)
       crimes = crimedict[(rlat, rlon)]
