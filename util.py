@@ -3,7 +3,35 @@ import inspect
 import heapq
 import random
 import io
+def calcdist(tuple1, tuple2):
+    lat1 = tuple1[0]
+    lat2 = tuple2[0]
+    long1 = tuple1[1]
+    long2 = tuple2[1]
+    y1 = lat1
+    x1 = long1
+    y2 = lat2
+    x2 = long2
+    # all assumed to be in decimal degrees
 
+    # if (and only if) the input is strings
+    # use the following conversions
+
+    y1 = float(y1)
+    x1 = float(x1)
+    y2 = float(y2)
+    x2 = float(x2)
+    #
+    R = 3958.76  # miles = 6371 km
+    #
+    y1 *= pi / 180.0
+    x1 *= pi / 180.0
+    y2 *= pi / 180.0
+    x2 *= pi / 180.0
+    #
+    # approximate great circle distance with law of cosines
+    #
+    return acos(sin(y1) * sin(y2) + cos(y1) * cos(y2) * cos(x2 - x1)) * R
 class PriorityQueue:
     """
     Implements a priority queue data structure. Each inserted item
