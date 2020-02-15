@@ -110,10 +110,10 @@ for x in range(10000):
     index2+=1
 lat = np.array(rlist1)#lat[0:100])
 lon = np.array(rlist2)#lon[0:100])
-plt.scatter(lat, lon, alpha=0.5)
+plt.scatter(lon, lat, alpha=0.5)
 plt.title('Scatter plot')
-plt.xlabel('lat')
-plt.ylabel('lon')
+plt.xlabel('lon')
+plt.ylabel('lat')
 plt.show()
 with open('data.txt', 'w') as outfile:  #Writing the data file
     json.dump(convertdict(newdict), outfile)
