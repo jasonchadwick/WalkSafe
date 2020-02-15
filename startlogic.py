@@ -1,4 +1,5 @@
 import util
+import crime_cost as cc
 
 def closestNode(coord, nodeDict):
     nodes = nodeDict.keys()
@@ -15,3 +16,5 @@ def closestNode(coord, nodeDict):
         
     return bestNode
         
+#nodes = cc.update(cc.getNodedata())
+#print(closestNode((40.7, -74.0), nodes))
