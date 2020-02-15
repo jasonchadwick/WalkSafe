@@ -117,8 +117,8 @@ def plotdata(importantcrimeData, nodeData, nodelist):
         temp1 = round(temp1, 3)
     plt.imshow(np.array(a), cmap='hot', interpolation='nearest')
     # plt.scatter(lon2, lat2, alpha=0.5, color = 'r')
-    # list1 = np.array([(item[0]-min1)*1000 for item in nodelist])
-    # list2 = np.array([(item[1]-min2)*1000 for item in nodelist])  # lon[0:100])
+    list1 = np.array([(item[0]-min1)*1000 for item in nodelist])
+    list2 = np.array([(item[1]-min2)*1000 for item in nodelist])  # lon[0:100])
     # list1 = np.array([item[0] for item in nodelist])
     # list2 = np.array([item[1] for item in nodelist])
     lat = [0]*len(importantcrimeData)
@@ -144,7 +144,7 @@ def plotdata(importantcrimeData, nodeData, nodelist):
     # lat = np.array(rlist1)#lat[0:100])
     # lon = np.array(rlist2)#lon[0:100])
     # plt.scatter(lon, lat, alpha=0.5, color = 'b')
-    # plt.plot(list2, list1, alpha=1, color = "g", linewidth=7.0)
+    plt.plot(list2, list1, alpha=1, color = "g", linewidth=7.0)
     plt.title('Scatter plot')
     plt.xlabel('lon')
     plt.ylabel('lat')
@@ -212,18 +212,19 @@ nodenum = len(nodeData)
 finaldict = {}
 print(nodenum)
 count = 0
-# for datapoint in nodeData:
-#     finaldict[(datapoint[0], datapoint[1])] = calcRisk.calcRisk((float(datapoint[0]), float(datapoint[1])), averageNodeDict)
-#     if count %20000 == 0:
-#         print(count)
-#     count+=1
-# print("finished doing crime")
+for datapoint in nodeData:
+    finaldict[(datapoint[0], datapoint[1])] = calcRisk.calcRisk((float(datapoint[0]), float(datapoint[1])), averageNodeDict)
+    if count %20000 == 0:
+        print(count)
+    count+=1
+print("finished doing crime")
 #make coords into strings and store in json
 stringdict = {}
 # for node in finaldict.keys():
 #     stringdict[str(node[0]) + " " + str(node[1])] = finaldict[node]
 # json.dump(stringdict, open("data/nodetimerisk.json","w"))
-# nodeList = searchProblem.getRoute(nodeData, finaldict, 15, [key for key in nodeData][random.randint(0,len(nodeData))], [key for key in nodeData][random.randint(0,len(nodeData))])
+
+nodeList = searchProblem.getRoute(nodeData, finaldict, 15, [key for key in nodeData][random.randint(0,len(nodeData))], [key for key in nodeData][random.randint(0,len(nodeData))])
 # coordlist = []
 # for coord in nodelist:
 #     coordlist.append([coord[0],coord[1]])
