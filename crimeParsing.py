@@ -16,7 +16,7 @@ def dump_crimes():
   with open("data/NYPD_Complaint_YTD.csv") as csvfile:
       rdr = csv.reader(csvfile, delimiter = ",")
       for row in rdr:
-        if (row[15] in felonies.keys()):
+        if row[15] in felonies.keys() and in_range(float(row[32]),float(row[33])):
           crimes.append(' '.join([row[32], row[33], str(felonies[row[15]]), row[4]]))
   json.dump(crimes, open("data/crimes.json", "w"))
 def load_crimes():
