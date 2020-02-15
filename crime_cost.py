@@ -8,8 +8,8 @@ import xml.etree.ElementTree as ET
 from math import cos, acos, pi, sin
 minlat = 40.683
 maxlat = 40.883
-minlon = -74.0369999
-maxlon = -73.8299999
+minlon = -74.037
+maxlon = -73.829
 def getNodedata():
     fetcheddict = json.load(open("data.txt"))
     return revertdict(fetcheddict)
@@ -74,10 +74,27 @@ def calcdist(tuple1, tuple2):
     #
     return acos(sin(y1) * sin(y2) + cos(y1) * cos(y2) * cos(x2 - x1)) * R
 nodeData = getNodedata()
-crimeData = crimeParsing.load_crimes()
-crimeData = [datapoint.split(" ") for datapoint in crimeData]
-importantcrimeData = [datapoint for datapoint in crimeData if in_range(float(datapoint[0]), float(datapoint[1]))]
-print(len(importantcrimeData))
-
-
-
+datalist = crimeParsing.load_crimes()
+importantcrimeData = [[]]*len(datalist)
+for index,datapoint in enumerate(datalist):
+    newdatapoint = datapoint.split(" ")
+    importantcrimeData[index] = [float(newdatapoint[0]), float(newdatapoint[1]), float(newdatapoint[2]), newdatapoint[3]]
+averageNodeDict = {}
+temp1 = round(minlat,3)
+temp2 = round(minlon,3)
+while(temp1 <= maxlat):
+    while(temp2 <= maxlon):
+        averageNodeDict[(round(temp1,3), round(temp2,3))] = []
+        temp2 += .001
+        temp2 = round(temp2,3)
+    temp2 = minlon
+    temp1 +=.001
+    temp1 = round(temp1, 3)
+for datapoint in importantcrimeData:
+    averageNodeDict[round(datapoint[0],3),round(datapoint[1],3)].append(datapoint)
+total = 0
+num = 0
+for key in averageNodeDict:
+    total += len(importantcrimeDa)
+    num +=1
+print(total/num)
