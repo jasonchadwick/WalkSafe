@@ -19,4 +19,4 @@ with open("data/NYPD_Complaint_YTD.csv") as csvfile:
       if (row[15] in felonies.keys()):
         crimes.append(' '.join([row[32], row[33], str(felonies[row[15]]), row[4]]))
 
-json.dump(crimes, open("data/crimes.json", "w"))
+#json.dump(crimes, open("data/crimes.json", "w"))
