@@ -3,6 +3,7 @@ import inspect
 import heapq
 import random
 import io
+from math import *
 
 def getDist(tuple1, tuple2):
     lat1 = tuple1[0]
@@ -72,3 +73,5 @@ class PriorityQueue:
                 break
         else:
             self.push(item, priority)
+
+print(getDist((40,-74),(40.001,-74.001))*5280)
