@@ -1,5 +1,6 @@
 import crimeParsing
 import numpy as np
+import searchProblem
 import json
 import calcRisk
 import matplotlib
@@ -100,7 +101,7 @@ def calcdist(tuple1, tuple2):
     #
     return acos(sin(y1) * sin(y2) + cos(y1) * cos(y2) * cos(x2 - x1)) * R
 def update(nodeData):
-    return {(key[0][0], key[0][1]):nodeData[key] for key in nodeData}
+    return {(float(key[0]), float(key[1])):[(float(item[0]), float(item[1])) for item in nodeData[key]] for key in nodeData}
 nodeData = getNodedata()
 datalist = crimeParsing.load_crimes()
 importantcrimeData = [[]]*len(datalist)
@@ -129,5 +130,6 @@ for item in averageNodeDict:
         maxplace = item
 print(maxplace)
 nodeData = update(nodeData)
-finaldict = {(str(datapoint[0]),str(datapoint[1])):calcRisk.calcRiskTest((float(datapoint[0]),float(datapoint[1])), averageNodeDict) for datapoint in nodeData}
+finaldict = {(datapoint[0],datapoint[1]):calcRisk.calcRisk((float(datapoint[0]),float(datapoint[1])), averageNodeDict) for datapoint in nodeData}
+searchProblem.getRoute(nodeData, finaldict, 15, [key for key in nodeData][random.randint(0,len(nodeData))], [key for key in nodeData][random.randint(0,len(nodeData))])
 plotdata(importantcrimeData)
