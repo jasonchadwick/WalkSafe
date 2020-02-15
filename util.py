@@ -3,7 +3,8 @@ import inspect
 import heapq
 import random
 import io
-def calcdist(tuple1, tuple2):
+
+def getDist(tuple1, tuple2):
     lat1 = tuple1[0]
     lat2 = tuple2[0]
     long1 = tuple1[1]
@@ -32,6 +33,7 @@ def calcdist(tuple1, tuple2):
     # approximate great circle distance with law of cosines
     #
     return acos(sin(y1) * sin(y2) + cos(y1) * cos(y2) * cos(x2 - x1)) * R
+
 class PriorityQueue:
     """
     Implements a priority queue data structure. Each inserted item
