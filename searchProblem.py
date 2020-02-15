@@ -1,7 +1,5 @@
 import search
 
-weight = 1
-
 class RouteSearchProblem(search.SearchProblem):
     """
     A search problem defines the state space, start state, goal test, successor
@@ -43,6 +41,7 @@ class RouteSearchProblem(search.SearchProblem):
         """
         Given a state and an action, returns resulting state.
         """
+        return action
 
     def getCost(self, state, action):
         """
@@ -51,13 +50,21 @@ class RouteSearchProblem(search.SearchProblem):
         """
         distance = util.getDist(state[0], action[0])
         safety = action[1]
-        return distance + (safety * weight)
+        return distance * safety
 
     def getCostOfActions(self, actions):
         """
-        Returns the cost of a particular sequence of actions. If those actions
-        include an illegal move, return 999999.
+        Returns the cost of a particular sequence of actions
         """
+        sum = 0.0
+        prev = self.startState
+        curr = None
+        for action in actions:
+            curr = action
+            sum += util.getDist(prev, curr)
+            prev = curr
+        return sum
+
 def MaxHeuristic(state, problem):
     return util.getDist(state, problem.goal)
 
