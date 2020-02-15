@@ -104,7 +104,7 @@ rlist1 = [0]*10000
 rlist2 = [0]*10000
 index2 = 0
 for x in range(10000):
-    r = random.randint(0,len(lat))
+    r = random.randint(0,len(lat)-1)
     rlist1[index2] = float(lat[r])
     rlist2[index2] = float(lon[r])
     index2+=1
