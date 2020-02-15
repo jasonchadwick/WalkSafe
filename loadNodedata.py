@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 from math import cos, acos, pi, sin
 
 def convertkey(t):
-    return str(t[0][0]) + " " + str(t[0][1]) + " " + str(t[1])
+    return str(t[0][0]) + " " + str(t[0][1])
 def convertval(t):
     return str(t[0]) + " " + str(t[1])
 def convertdict(d):
@@ -19,7 +19,7 @@ def convertdict(d):
     return newd
 def revertkey(t):
     l = t.split(" ")
-    return ((l[0], l[1]), l[2])
+    return (l[0], l[1])
 def revertval(v):
     l = v.split(" ")
     return (l[0], l[1])
@@ -115,8 +115,8 @@ newdict = {(dict[item], 1):[dict[x] for x in nodedict[item]] for item in nodedic
 # plt.xlabel('lat')
 # plt.ylabel('lon')
 # plt.show()
-# with open('data.txt', 'w') as outfile:  #Writing the data file
-#     json.dump(convertdict(newdict), outfile) 
+with open('data.txt', 'w') as outfile:  #Writing the data file
+    json.dump(convertdict(newdict), outfile)
 def getNodedata():
     fetcheddict = json.load(open("data.txt"))
     return revertdict(fetcheddict)
