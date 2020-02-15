@@ -1,3 +1,7 @@
+import numpy as np
+import matplotlib
+import random
+import matplotlib.pyplot as plt
 import xml.etree.ElementTree as ET
 from math import cos, acos, pi, sin
 def is_road(way):
@@ -61,4 +65,27 @@ nodes = root.findall("node")
 for item in nodes:
     dict[item.get("id")] = (item.get("lat"), item.get("lon"))
 newdict = {(dict[item], 1):[dict[x] for x in nodedict[item]] for item in nodedict}
-print(newdict)
+lat = [0]*sum
+lon = [0]*sum
+index = 0
+for key in newdict:
+    lat[index] = key[0][0]
+    lon[index] = key[0][1]
+    index+=1
+lat = lat[0:index]
+lon = lon[0:index]
+rlist1 = [0]*1000
+rlist2 = [0]*1000
+index2 = 0
+for x in range(1000):
+    r = random.randint(0,len(lat))
+    rlist1[index2] = float(lat[r])
+    rlist2[index2] = float(lon[r])
+    index2+=1
+lat = np.array(rlist1)#lat[0:100])
+lon = np.array(rlist2)#lon[0:100])
+plt.scatter(lat, lon, alpha=0.5)
+plt.title('Scatter plot')
+plt.xlabel('lat')
+plt.ylabel('lon')
+plt.show()
