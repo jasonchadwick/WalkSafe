@@ -26,5 +26,5 @@ def calcRisk(node, crimedict):
         hour = crime[3][0]
         for t in [(hour-2)%24,(hour-1)%24,hour,(hour+1)%24,(hour+2)%24]:
           dt = min(abs(hour - t), abs(24 - (hour - t)))
-          timedict[t] += crime[2] * np.exp(-dist*dist/125000) * np.exp(-dt*dt/18)
+          timedict[t] += crime[2] * np.exp(-dist*dist/125000)
   return timedict
