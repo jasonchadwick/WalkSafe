@@ -73,4 +73,4 @@ def MaxHeuristic(state, problem):
 
 def getRoute(mapDict, safety, time, goal, start):
     prob = RouteSearchProblem(mapDict, safety, time, goal, start)
-    return search.astar(prob, MaxHeuristic)
+    return search.aStarSearch(prob, MaxHeuristic)
