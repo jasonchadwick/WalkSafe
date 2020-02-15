@@ -117,5 +117,6 @@ newdict = {(dict[item], 1):[dict[x] for x in nodedict[item]] for item in nodedic
 # plt.show()
 # with open('data.txt', 'w') as outfile:  #Writing the data file
 #     json.dump(convertdict(newdict), outfile) 
-fetcheddict = json.load(open("data.txt"))
-fetcheddict = revertdict(fetcheddict)
+def getNodedata():
+    fetcheddict = json.load(open("data.txt"))
+    return revertdict(fetcheddict)
