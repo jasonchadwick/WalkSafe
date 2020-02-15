@@ -6,6 +6,7 @@ def calcRiskTest(node, crimedict):
   timedict = {}
   for t in range(24):
     timedict[t] = 0
+  return timedict
 
 def calcRisk(node, crimedict):
   nodelat = node[0]
@@ -25,3 +26,4 @@ def calcRisk(node, crimedict):
           minute = crime[3][1]
           dt = min(abs(hour - t), abs(24 - (hour - t)))
           timedict[t] += crime[2] * np.exp(-dist*dist/125000) * np.exp(-dt*dt/18)
+  return timedict
