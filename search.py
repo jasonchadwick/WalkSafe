@@ -96,7 +96,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     "*** YOUR CODE HERE ***"
     expored_set = set()
     frontier = util.PriorityQueue()
-    start_node = Node(problem.getStartState(), None, [], 0 + heuristic(problem.getStartState(), problem))
+    start_node = Node(problem.getStartState(), None, [], 0.0 + heuristic(problem.getStartState(), problem))
     frontier.push(start_node, start_node.path_cost)
     while True:
        if frontier.isEmpty():
