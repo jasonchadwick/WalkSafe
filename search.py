@@ -53,7 +53,7 @@ class SearchProblem:
         """
         util.raiseNotDefined()
 
-class Node:
+ class Node:
     """
     Search node object for your convenience.
 
@@ -113,4 +113,3 @@ def aStarSearch(problem, heuristic=nullHeuristic):
            child_node = Node(child_node_state, cur_node, child_node_actions, problem.getCostOfActions(child_node_actions) + heuristic(child_node_state, problem))
            if child_node not in expored_set:
                frontier.update(child_node, child_node.path_cost)
-    util.raiseNotDefined()

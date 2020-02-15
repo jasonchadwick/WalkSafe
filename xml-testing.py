@@ -56,3 +56,9 @@ sum = 0
 for node in nodeset:
     sum +=1
 print(sum)
+dict = {}
+nodes = root.findall("node")
+for item in nodes:
+    dict[item.get("id")] = (item.get("lat"), item.get("lon"))
+newdict = {(dict[item], 1):[dict[x] for x in nodedict[item]] for item in nodedict}
+print(newdict)
