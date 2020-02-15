@@ -6,11 +6,14 @@ def is_road(way):
             return True
     return False
 
+def get_road_nodes(way):
+    way.findall("nd")
+
 tree = ET.parse("maps/manhattan-map.osm")
 root = tree.getroot()
-ways = [x for x in root.findall("way") if is_road(x)]
+roads = [x for x in root.findall("way") if is_road(x)]
 
-print(ways[0])
+print(roads[0])
 
 #for way in root.findall("way"):
  #   if way.get("id") == "5668968":
