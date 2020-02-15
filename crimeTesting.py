@@ -48,8 +48,9 @@ def is_road(way):
         if tag.get("k") == "highway":
             return True
     return False
+
 def plotdata(importantcrimeData, nodeData, nodelist):
-    # nodelist = [(40.8293935, -73.8754458), (40.8295914, -73.874754), (40.8296024, -73.8747154),
+     nodelist = #[(40.8293935, -73.8754458), (40.8295914, -73.874754), (40.8296024, -73.8747154),
     #             (40.8296199, -73.8746368), (40.8296368, -73.8745611), (40.8296692, -73.8744553),
     #             (40.8298634, -73.8738199), (40.8298782, -73.8737574), (40.8298988, -73.8736705),
     #             (40.8300158, -73.8732656), (40.8301185, -73.8729005), (40.8301526, -73.8727854),
@@ -204,12 +205,12 @@ nodenum = len(nodeData)
 finaldict = {}
 print(nodenum)
 count = 0
-for datapoint in nodeData:
-    finaldict[(datapoint[0], datapoint[1])] = calcRisk.calcRisk((float(datapoint[0]), float(datapoint[1])), averageNodeDict)
-    if count %20000 == 0:
-        print(count)
-    count+=1
-print("finished doing crime")
+# for datapoint in nodeData:
+#     finaldict[(datapoint[0], datapoint[1])] = calcRisk.calcRisk((float(datapoint[0]), float(datapoint[1])), averageNodeDict)
+#     if count %20000 == 0:
+#         print(count)
+#     count+=1
+# print("finished doing crime")
 #make coords into strings and store in json
 stringdict = {}
 # for node in finaldict.keys():
@@ -219,4 +220,4 @@ nodeList = searchProblem.getRoute(nodeData, finaldict, 15, [key for key in nodeD
 # coordlist = []
 # for coord in nodelist:
 #     coordlist.append([coord[0],coord[1]])
-plotdata(nodeData, importantcrimeData, nodeList)
+plotdata(nodeData, importantcrimeData)
