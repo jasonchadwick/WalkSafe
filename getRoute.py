@@ -5,9 +5,7 @@ import crime_cost
 import matplotlib.pyplot as plt
 import startlogic
 
-def getRoute(start, end, nodeDict):
-  start1 = startlogic.closestNode(start, nodeDict)
-  end1 = startlogic.closestNode(end, nodeDict)
+def getRoute(start, end, ndict):
   nodes = json.load(open("data/nodetimerisk.json"))
   tuplenodes = {}
   for n in nodes.keys():
@@ -18,8 +16,13 @@ def getRoute(start, end, nodeDict):
       newmini[int(mini)] = minidict[mini]
     tuplenodes[tup] = newmini
   nodeData = crime_cost.update(crime_cost.getNodedata())
+  #print(ndict)
+  #start1 = startlogic.closestNode(start, ndict)
+  #end1 = startlogic.closestNode(end, ndict)
+  #print(start1)
+  #print(end1)
   print("starting search")
-  nodelist = searchProblem.getRoute(nodeData, tuplenodes, 15, start1, end1)
+  nodelist = searchProblem.getRoute(nodeData, tuplenodes, 15, [key for key in nodeData][random.randint(0,len(nodeData))], [key for key in nodeData][random.randint(0,len(nodeData))])
   print("finished search")
   coordlist = []
   for coord in nodelist:
@@ -79,9 +82,8 @@ for s in stuf.keys():
   minil = []
   for ss in stuf[s]:
     pars = s.split()
-    minil.append((pars[0],pars[1]))
-  newd[(parsed[0],parsed[1])] = minil
+    minil.append((float(pars[0]),float(pars[1])))
+  newd[(float(parsed[0]),float(parsed[1]))] = minil
+
 
 getRoute((40.73500827774132,-73.99870871510616),(40.776192757644445,-73.95197656436147),newd)
-
-#print(startlogic.closestNode((40.73500827774132,-73.99870871510616), newd))
