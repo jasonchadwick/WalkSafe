@@ -1,12 +1,12 @@
 import search
 
-class PositionSearchProblem(search.SearchProblem):
+class RouteSearchProblem(search.SearchProblem):
     """
     A search problem defines the state space, start state, goal test, successor
     function and cost function.
     """
 
-    def __init__(self, gameState, costFn = lambda x: 1, goal, start):
+    def __init__(self, map, costFn = lambda x: 1, goal, start):
         """
         Stores the start and goal.
         gameState: A GameState object 
@@ -15,6 +15,7 @@ class PositionSearchProblem(search.SearchProblem):
         """
         self.startState = start
         self.goal = goal
+        self.map = map
         self.costFn = costFn
 
         # For display purposes
@@ -49,5 +50,5 @@ class PositionSearchProblem(search.SearchProblem):
 def MaxHeuristic:
     return 1
 
-prob = PositionSearchProblem(gameState, start=, goal=)
+prob = RouteSearchProblem(map, start=, goal=)
 search.astar(prob, MaxHeuristic)
