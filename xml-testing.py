@@ -21,7 +21,7 @@
    #         if tag.get("k") == "highway":
     #            print(tag.get("v"))
 import xml.etree.ElementTree as ET
-
+from math import cos, acos, pi, sin
 def is_road(way):
     for tag in way.findall("tag"):
         if tag.get("k") == "highway":
