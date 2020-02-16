@@ -212,9 +212,9 @@ for datapoint in nodeData:
 print("finished doing crime")
 #make coords into strings and store in json
 stringdict = {}
-# for node in finaldict.keys():
-#     stringdict[str(node[0]) + " " + str(node[1])] = finaldict[node]
-# json.dump(stringdict, open("data/nodetimerisk.json","w"))
+for node in finaldict.keys():
+    stringdict[str(node[0]) + " " + str(node[1])] = finaldict[node]
+json.dump(stringdict, open("data/nodetimerisk.json","w"))
 nodeList = searchProblem.getRoute(nodeData, finaldict, 15, [key for key in nodeData][random.randint(0,len(nodeData))], [key for key in nodeData][random.randint(0,len(nodeData))])
 # coordlist = []
 # for coord in nodelist:
