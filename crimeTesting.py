@@ -14,7 +14,6 @@ minlat = 40.683
 maxlat = 40.883
 minlon = -74.037
 maxlon = -73.829
-
 def getNodedata():
     fetcheddict = json.load(open("data.txt"))
     return revertdict(fetcheddict)
@@ -55,8 +54,8 @@ def to_tuples(fname):
   for i in f['locations']:
     fnew.append((i[0],i[1]))
   return fnew
-def plotdata(importantcrimeData, nodeData, nodelist):
-    #nodelist = to_tuples("locations2.json")
+def plotdata(importantcrimeData, nodeData, nodelist, time):
+    # nodelist = to_tuples("locations2.json")
     # nodelist =   [(40.8293935, -73.8754458), (40.8295914, -73.874754), (40.8296024, -73.8747154),
     #             (40.8296199, -73.8746368), (40.8296368, -73.8745611), (40.8296692, -73.8744553),
     #             (40.8298634, -73.8738199), (40.8298782, -73.8737574), (40.8298988, -73.8736705),
@@ -85,53 +84,57 @@ def plotdata(importantcrimeData, nodeData, nodelist):
     max2 = np.amax(list2)+.002
     min1 = np.amin(list1)-.002
     min2 = np.amin(list2)-.002
-    lat = [0] * len(nodeData)
-    lon = [0] * len(nodeData)
-    index = 0
-    for datapoint in nodeData:
-        lat[index] = datapoint[0]
-        lon[index] = datapoint[1]
-        index += 1
-    lat = lat[0:index]
-    lon = lon[0:index]
-    rlist1 = [0] * 1000
-    rlist2 = [0] * 1000
-    index2 = 0
-    while index2 < 1000:
-        r = random.randint(0, len(lat) - 1)
-        guess1 = float(lat[r])
-        guess2 = float(lon[r])
-        if min1 <= guess1 and max1 >= guess1 and min2 <= guess2 and max2 >= guess2:
-            rlist1[index2] = float(lat[r])
-            rlist2[index2] = float(lon[r])
-            index2 += 1
-    lat2 = np.array(rlist1)  # lat[0:100])
-    lon2 = np.array(rlist2)  # lon[0:100])
+    # lat = [0] * len(nodeData)
+    # lon = [0] * len(nodeData)
+    # index = 0
+    # for datapoint in nodeData:
+    #     lat[index] = datapoint[0]
+    #     lon[index] = datapoint[1]
+    #     index += 1
+    # lat = lat[0:index]
+    # lon = lon[0:index]
+    # rlist1 = [0] * 1000
+    # rlist2 = [0] * 1000
+    # index2 = 0
+    # while index2 < 1000:
+    #     r = random.randint(0, len(lat) - 1)
+    #     guess1 = float(lat[r])
+    #     guess2 = float(lon[r])
+    #     if min1 <= guess1 and max1 >= guess1 and min2 <= guess2 and max2 >= guess2:
+    #         rlist1[index2] = float(lat[r])
+    #         rlist2[index2] = float(lon[r])
+    #         index2 += 1
+    # lat2 = np.array(rlist1)  # lat[0:100])
+    # lon2 = np.array(rlist2)  # lon[0:100])
     a = [[0 for x in range(int((max2-min2)*1000 + 1))] for y in range(int((max1-min1)*1000 + 1))]
     temp1 = 0
     temp2 = 0
+    # lat = [0]*len(importantcrimeData)
+    # lon = [0]*len(importantcrimeData)
+    # index = 0
+    # for datapoint in importantcrimeData:
+    #     lat[index] = (datapoint[0]-min1)*1000
+    #     lon[index] = (datapoint[1]-min2)*1000
+    #     index+=1
+    # lat = lat[0:index]
+    # lon = lon[0:index]
     while (temp1 < int((max1-min1)*1000 + 1)):
         while (temp2 < int((max2-min2)*1000 + 1)):
-            a[temp1][temp2] = len(averageNodeDict[(round(min1 + temp1 / 1000, 3), round(min2 + temp2 / 1000, 3))])
+            l1  = averageNodeDict2[(round(min1 + temp1 / 1000, 3), round(min2 + temp2 / 1000, 3))]
+            a[temp1][temp2] = sum([finaldict[item][time] for item in l1])
             temp2 += 1
         temp2 = 0
         temp1 += 1
         temp1 = round(temp1, 3)
+    b = [[(x + y) for x in range(20)] for y in range(20)]
+
     plt.imshow(np.array(a), cmap='hot', interpolation='nearest')
     # plt.scatter(lon2, lat2, alpha=0.5, color = 'r')
     list1 = np.array([(item[0]-min1)*1000 for item in nodelist])
     list2 = np.array([(item[1]-min2)*1000 for item in nodelist])  # lon[0:100])
     # list1 = np.array([item[0] for item in nodelist])
     # list2 = np.array([item[1] for item in nodelist])
-    lat = [0]*len(importantcrimeData)
-    lon = [0]*len(importantcrimeData)
-    index = 0
-    for datapoint in importantcrimeData:
-        lat[index] = (datapoint[0]-min1)*1000
-        lon[index] = (datapoint[1]-min2)*1000
-        index+=1
-    lat = lat[0:index]
-    lon = lon[0:index]
+
     rlist1 = [0]*1000
     rlist2 = [0]*1000
     index2 = 0
@@ -188,7 +191,7 @@ def findClosestNode(d, point):
             if calcdist(item, point) < closestdist:
                 closestdist = calcdist(item, point)
                 closestpoint = item
-            return item
+            return (item[0], item[1])
     else:
         newlist = []
         for y in range(1, 10):
@@ -206,62 +209,66 @@ def findClosestNode(d, point):
                         if calcdist(item, point) < closestdist:
                             closestdist = calcdist(item, thing)
                             closestpoint = item
-                        return item
+                        return (item[0], item[1])
         return None
 def update(nodeData):
     return {(float(key[0]), float(key[1])):[(float(item[0]), float(item[1])) for item in nodeData[key]] for key in nodeData}
-nodeData = getNodedata() #
-datalist = crimeParsing.load_crimes()
-importantcrimeData = [[]]*len(datalist)
-for index,datapoint in enumerate(datalist):
-    newdatapoint = datapoint.split(" ")
-    timelist = newdatapoint[3].split(":")
-    importantcrimeData[index] = [float(newdatapoint[0]), float(newdatapoint[1]), float(newdatapoint[2]), [int(timelist[0]), int(timelist[1]), int(timelist[2])]]
-averageNodeDict = {}
-averageNodeDict2 = {}
-temp1 = round(minlat,3)
-temp2 = round(minlon,3)
-while(temp1 <= maxlat):
-    while(temp2 <= maxlon):
-        averageNodeDict[(round(temp1,3), round(temp2,3))] = []
-        averageNodeDict2[(round(temp1,3), round(temp2,3))] = []
-        temp2 += .001
-        temp2 = round(temp2,3)
-    temp2 = minlon
-    temp1 +=.001
-    temp1 = round(temp1, 3)
-nodeData = update(nodeData)
-for datapoint in importantcrimeData:
-    averageNodeDict[round(datapoint[0],3),round(datapoint[1],3)].append(datapoint)
-for datapoint in nodeData:
-    averageNodeDict2[(round(datapoint[0],3),round(datapoint[1],3))].append(datapoint)
-max = 0
-maxplace = (0,0)
-for item in averageNodeDict:
-    if len(averageNodeDict[item])> max:
-        max = len(averageNodeDict[item])
-        maxplace = item
-print(maxplace)
-
-nodenum = len(nodeData)
+nodeData = update(getNodedata()) #
+# datalist = crimeParsing.load_crimes()
+# importantcrimeData = [[]]*len(datalist)
+# for index,datapoint in enumerate(datalist):
+#     newdatapoint = datapoint.split(" ")
+#     timelist = newdatapoint[3].split(":")
+#     importantcrimeData[index] = [float(newdatapoint[0]), float(newdatapoint[1]), float(newdatapoint[2]), [int(timelist[0]), int(timelist[1]), int(timelist[2])]]
+# averageNodeDict = {}
+# averageNodeDict2 = {}
+# temp1 = round(minlat,3)
+# temp2 = round(minlon,3)
+# while(temp1 <= maxlat):
+#     while(temp2 <= maxlon):
+#         averageNodeDict[(round(temp1,3), round(temp2,3))] = []
+#         averageNodeDict2[(round(temp1,3), round(temp2,3))] = []
+#         temp2 += .001
+#         temp2 = round(temp2,3)
+#     temp2 = minlon
+#     temp1 +=.001
+#     temp1 = round(temp1, 3)
+# nodeData = update(nodeData)
+# for datapoint in importantcrimeData:
+#     averageNodeDict[round(datapoint[0],3),round(datapoint[1],3)].append(datapoint)
+# for datapoint in nodeData:
+#     averageNodeDict2[(round(datapoint[0],3),round(datapoint[1],3))].append(datapoint)
+# nodenum = len(nodeData)
 finaldict = {}
-print(nodenum)
-count = 0
+stringdict = json.load(open("data/nodetimerisk.json"))
+finaldict = {(float(item.split(" ")[0]), float(item.split(" ")[1])): {int(thing) : stringdict[item][thing] for thing in stringdict[item]} for item in stringdict}
+print(len(finaldict))
+stringdict = json.load(open("data/nodeData.json"))
+averageNodeDict2 = {(float(item.split(" ")[0]), float(item.split(" ")[1])): [(thing[0], thing[1]) for thing in stringdict[item]] for item in stringdict}
+
+# count = 0
 # for datapoint in nodeData:
 #     finaldict[(datapoint[0], datapoint[1])] = calcRisk.calcRisk((float(datapoint[0]), float(datapoint[1])), averageNodeDict)
 #     if count %20000 == 0:
 #         print(count)
 #     count+=1
-print("finished doing crime")
-#make coords into strings and store in json
-stringdict = {}
-# for node in finaldict.keys():
-#     stringdict[str(node[0]) + " " + str(node[1])] = finaldict[node]
-# json.dump(stringdict, open("data/nodetimerisk.json","w"))
-point1 = findClosestNode(averageNodeDict2, (40.742843, -73.996623))
-point2 = findClosestNode(averageNodeDict2, (40.747761, -73.985064))
-nodeList = searchProblem.getRoute(nodeData, finaldict, 15, point1, point2)
+# #make coords into strings and store in json
+# stringdict = {}
+# for node in averageNodeDict2.keys():
+#     stringdict[str(node[0]) + " " + str(node[1])] = averageNodeDict2[node]
+# json.dump(stringdict, open("data/nodeData.json","w"))
+# point1 = findClosestNode(averageNodeDict2, (40.742843, -73.996623))
+# point2 = findClosestNode(averageNodeDict2, (40.747761, -73.985064))
+point1 = findClosestNode(averageNodeDict2, (40.771103, -73.983417))
+point2 = findClosestNode(averageNodeDict2, (40.766648, -73.990485))
+assert point1 in nodeData
+assert point2 in nodeData
+time = 15
+nodeList = searchProblem.getRoute(nodeData, finaldict, time, point1, point2)
 # coordlist = []
 # for coord in nodelist:
 #     coordlist.append([coord[0],coord[1]])
-plotdata(nodeData, importantcrimeData, nodeList)
+print(len(nodeList))
+plotdata(nodeData, [], nodeList, time)
+# <class 'tuple'>: (40.7617942, -73.9827521)
+# <class 'tuple'>: (40.7560253, -73.9712321)
