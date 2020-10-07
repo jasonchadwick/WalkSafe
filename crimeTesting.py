@@ -214,7 +214,8 @@ def findClosestNode(d, point):
 def update(nodeData):
     return {(float(key[0]), float(key[1])):[(float(item[0]), float(item[1])) for item in nodeData[key]] for key in nodeData}
 nodeData = update(getNodedata()) #
-# datalist = crimeParsing.load_crimes()
+datalist = crimeParsing.load_crimes()
+print(len(datalist))
 # importantcrimeData = [[]]*len(datalist)
 # for index,datapoint in enumerate(datalist):
 #     newdatapoint = datapoint.split(" ")
@@ -241,6 +242,7 @@ nodeData = update(getNodedata()) #
 # nodenum = len(nodeData)
 finaldict = {}
 stringdict = json.load(open("data/nodetimerisk.json"))
+print(len(stringdict))
 finaldict = {(float(item.split(" ")[0]), float(item.split(" ")[1])): {int(thing) : stringdict[item][thing] for thing in stringdict[item]} for item in stringdict}
 print(len(finaldict))
 stringdict = json.load(open("data/nodeData.json"))
