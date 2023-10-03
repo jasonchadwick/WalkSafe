@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "cookie-parser": "^1.4.3",
-    "debug": "~4.1.1",
+    "debug": "~4.3.1",
     "morgan": "^1.9.1",
     "express": "^4.16.4",
     "body-parser": "^1.18.3",
